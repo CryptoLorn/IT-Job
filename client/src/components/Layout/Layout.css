@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.layout_wrapper {
+    border: 1px solid black;
+    height: 20px;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 20px;
+}
+
+.layout_wrapper a {
+    text-decoration: none;
+    color: white;
+}
+
+.layout_auth_button_wrapper {
+    display: flex;
+    column-gap: 20px;
+}
+
+.login_button, .registration_button {
+    border: 1px solid #ccbdbd;
+    color: #ccbdbd;
+    border-radius: 15px;
+    width: 80px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registration_button {
+    width: 100px;
+}
+
+.login_button:hover, .registration_button:hover {
+    cursor: pointer;
+    border: 1px solid white;
+    color: white;
+}
