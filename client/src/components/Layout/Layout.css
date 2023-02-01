@@ -24,7 +24,7 @@ body {
     column-gap: 20px;
 }
 
-.login_button, .registration_button {
+.login_button, .registration_button, .logout_button {
     border: 1px solid #ccbdbd;
     color: #ccbdbd;
     border-radius: 15px;
@@ -39,7 +39,7 @@ body {
     width: 100px;
 }
 
-.login_button:hover, .registration_button:hover {
+.login_button:hover, .registration_button:hover, .logout_button:hover {
     cursor: pointer;
     border: 1px solid white;
     color: white;

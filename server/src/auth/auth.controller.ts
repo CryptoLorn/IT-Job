@@ -1,12 +1,11 @@
-import {Body, Controller, HttpCode, HttpStatus, Post, Req, Res, UseGuards} from '@nestjs/common';
-import {Request, Response} from 'express';
-import {AuthGuard} from '@nestjs/passport';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Res } from '@nestjs/common';
+import { Request, Response } from 'express';
 
-import {CreateUserDto} from '../users/dto/createUser.dto';
-import {AuthService} from './auth.service';
-import {TokensType} from './types/tokens.type';
-import {AuthDto} from './dto/auth.dto';
-import {TokensService} from '../tokens/tokens.service';
+import { CreateUserDto } from '../users/dto/createUser.dto';
+import { AuthService } from './auth.service';
+import { TokensType } from './types/tokens.type';
+import { AuthDto } from './dto/auth.dto';
+import { TokensService } from '../tokens/tokens.service';
 
 @Controller('auth')
 export class AuthController {
@@ -14,7 +13,7 @@ export class AuthController {
                 private tokenService: TokensService) {}
 
     @HttpCode(HttpStatus.CREATED)
-    @Post('registration')
+    @Post('signup')
     async registration(@Body() userDto: CreateUserDto, @Res({ passthrough: true }) res: Response): Promise<TokensType> {
         const tokens = await this.authService.registration(userDto);
 
@@ -45,12 +44,12 @@ export class AuthController {
     }
 
     @HttpCode(HttpStatus.OK)
-    @UseGuards(AuthGuard('jwt-refresh'))
-    @Post('refresh')
+    @Get('refresh')
     async refreshToken(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
         const {refresh_token} = req.cookies;
 
         const tokens = await this.authService.refresh(refresh_token);
+
         res.cookie('refresh_token', tokens.refresh_token, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
 
         return tokens;

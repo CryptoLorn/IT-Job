@@ -1,15 +1,18 @@
-import {HttpException, HttpStatus, Injectable, NotFoundException, UnauthorizedException} from '@nestjs/common';
-import {InjectModel} from '@nestjs/sequelize';
+import { HttpException, HttpStatus, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import * as bcrypt from 'bcryptjs';
 
-import {CreateUserDto} from './dto/createUser.dto';
-import {User} from './user.model';
-import {RoleService} from '../roles/role.service';
-import {AddRoleDto} from './dto/addRole.dto';
-import {UpdateUserDto} from './dto/updateUser.dto';
-import {AuthDto} from '../auth/dto/auth.dto';
-import {SkillsService} from "../skills/skills.service";
-import {SkillsDto} from "../skills/dto/skills.dto";
+import { CreateUserDto } from './dto/createUser.dto';
+import { User } from './user.model';
+import { RoleService } from '../roles/role.service';
+import { AddRoleDto } from './dto/addRole.dto';
+import { UpdateUserDto } from './dto/updateUser.dto';
+import { AuthDto } from '../auth/dto/auth.dto';
+import { SkillsService } from '../skills/skills.service';
+import { SkillsDto } from '../skills/dto/skills.dto';
+import { Role } from '../roles/role.model';
+import { Skills } from '../skills/skills.model';
+import { Position } from '../positions/positions.model';
 
 @Injectable()
 export class UserService {
@@ -51,7 +54,11 @@ export class UserService {
     }
 
     async getUserByEmail(email: string) {
-        return await this.userRepository.findOne({where: {email}, include: {all: true}});
+        return await this.userRepository.findOne({where: {email}, include: [
+                {model: Role},
+                {model: Skills},
+                {model: Position}
+            ]});
     }
 
     async getUserById(id: number) {
