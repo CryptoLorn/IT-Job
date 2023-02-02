@@ -1,4 +1,6 @@
-import {IPosition} from "./position.interface";
+import { IPosition } from './position.interface';
+import { IRole } from './role.interface';
+import { ISkill } from './skill.interface';
 
 export interface IUser {
     id: number;
@@ -10,15 +12,4 @@ export interface IUser {
     positions: IPosition[];
     roles: IRole[];
     skills: ISkill[];
-}
-
-export interface IRole {
-    id: number;
-    value: string;
-    status: boolean;
-}
-
-export interface ISkill {
-    id: number;
-    value: string;
 }

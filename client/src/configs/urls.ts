@@ -5,7 +5,9 @@ export const urls = {
     signup: '/auth/signup',
     refresh: '/auth/refresh',
     logout: '/auth/logout',
-    users: '/users'
+    positions: '/positions',
+    roles: '/roles',
+    skills: '/skills'
 }
 
 export default basURL;

@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 
 import { Position } from './positions.model';
 import { CreatePositionDto } from './dto/createPosition.dto';
+import { Skills } from '../skills/skills.model';
 
 @Injectable()
 export class PositionsService {
@@ -10,5 +11,9 @@ export class PositionsService {
 
     async create(dto: CreatePositionDto) {
         return await this.positionRepository.create({...dto});
+    }
+
+    async getAll() {
+        return await this.positionRepository.findAll({include: Skills});
     }
 }

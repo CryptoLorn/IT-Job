@@ -3,6 +3,8 @@ import { BelongsToMany, Column, DataType, Model, Table } from 'sequelize-typescr
 import { User } from '../users/user.model';
 import { UserSkills } from './userSkills.model';
 import { skillsEnum } from './enums/skills.enum';
+import {Position} from "../positions/positions.model";
+import {PositionSkills} from "../positions/positionSkills.model";
 
 interface SkillsCreationAttributes {
     value: string;
@@ -18,4 +20,7 @@ export class Skills extends Model<Skills, SkillsCreationAttributes> {
 
     @BelongsToMany(() => User, () => UserSkills)
     skills: Skills[];
+
+    @BelongsToMany(() => Position, () => PositionSkills)
+    category: Skills[];
 }

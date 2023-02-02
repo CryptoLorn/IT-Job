@@ -7,6 +7,7 @@ import { Skills } from '../skills/skills.model';
 import { UserSkills } from '../skills/userSkills.model';
 import { Tokens } from '../tokens/tokens.model';
 import { Position } from '../positions/positions.model';
+import {englishLevelEnum} from "../positions/enums/englishLevel.enum";
 
 interface UserCreationAttributes {
     email: string;
@@ -27,8 +28,8 @@ export class User extends Model<User, UserCreationAttributes> {
     @Column({type: DataType.ENUM({values: levelEnum})})
     level: string;
 
-    @Column({type: DataType.BOOLEAN, defaultValue: false})
-    english_knowledge: boolean;
+    @Column({type: DataType.ENUM({values: englishLevelEnum}), defaultValue: 'Elementary'})
+    english_level: string;
 
     @Column({type: DataType.BOOLEAN, defaultValue: true})
     status: boolean;

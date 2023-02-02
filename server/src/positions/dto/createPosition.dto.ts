@@ -1,6 +1,7 @@
-import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 import { levelEnum } from '../../users/enums/level.enum';
+import { englishLevelEnum } from '../enums/englishLevel.enum';
 
 export class CreatePositionDto {
     @IsString({message: 'Title must be string'})
@@ -12,8 +13,10 @@ export class CreatePositionDto {
     @IsNotEmpty()
     level: string;
 
-    @IsBoolean({message: 'English knowledge must be boolean'})
-    english_knowledge: boolean;
+    @IsString({message: 'English level must be string'})
+    @IsEnum(englishLevelEnum, {message: 'english level are incorrect'})
+    @IsNotEmpty()
+    english_level: string;
 
     @IsNumber()
     userId: number;

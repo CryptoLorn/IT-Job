@@ -2,7 +2,7 @@ interface IUser {
     id: number;
     email: string;
     level: string;
-    english_knowledge: boolean;
+    english_level: string;
     status: boolean;
 }
 

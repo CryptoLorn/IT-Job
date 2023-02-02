@@ -17,6 +17,7 @@ import {Tokens} from './tokens/tokens.model';
 import { TokensModule } from './tokens/tokens.module';
 import { PositionsModule } from './positions/positions.module';
 import {Position} from "./positions/positions.model";
+import {PositionSkills} from "./positions/positionSkills.model";
 
 @Module({
   controllers: [AppController],
@@ -32,7 +33,7 @@ import {Position} from "./positions/positions.model";
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, Skills, UserRole, UserSkills, Tokens, Position],
+      models: [User, Role, Skills, UserRole, UserSkills, Tokens, Position, PositionSkills],
       autoLoadModels: true
     }),
     UserModule,

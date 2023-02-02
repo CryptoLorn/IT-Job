@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { PositionsService } from './positions.service';
@@ -17,5 +17,10 @@ export class PositionsController {
     @Post()
     create(@Body() dto: CreatePositionDto) {
         return this.positionsService.create(dto);
+    }
+
+    @Get()
+    getAll() {
+        return this.positionsService.getAll();
     }
 }

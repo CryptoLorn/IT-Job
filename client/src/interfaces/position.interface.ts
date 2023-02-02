@@ -1,9 +1,11 @@
 export interface IPosition {
     id: number;
     title: string;
+    salary: number;
     level: string;
     description: string;
-    english_knowledge: boolean;
+    english_level: string;
     status: boolean;
     userId: number;
+    createdAt: string;
 }

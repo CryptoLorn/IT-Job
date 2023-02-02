@@ -1,9 +1,15 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
 import authReducer from './slices/auth.slice';
+import positionReducer from './slices/position.slice';
+import roleReducer from './slices/role.slice';
+import skillReducer from './slices/skill.slice';
 
 const rootReducer = combineReducers({
-    authReducer
+    authReducer,
+    positionReducer,
+    roleReducer,
+    skillReducer
 })
 
 export const setupStore = () => configureStore({

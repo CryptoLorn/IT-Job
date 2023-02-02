@@ -1,0 +1,47 @@
+.position_wrapper {
+    height: 150px;
+    /*border: 1px solid #a8a8a8;*/
+}
+
+.position_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.position_header a {
+    text-decoration: none;
+    color: slateblue;
+}
+
+.position_header a:hover {
+    cursor: pointer;
+    color: darkblue;
+}
+
+.position_header_title_salary {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    width: 85%;
+}
+
+.position_header_title_salary span {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.position_header_salary {
+    color: green;
+    font-size: 18px;
+}
+
+.position_description {
+    height: 70px;
+    font-size: 18px;
+}
+
+.position_english_level {
+    color: gray;
+}
