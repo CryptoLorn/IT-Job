@@ -1,18 +1,20 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 
-import { IAddSkills, IPosition } from '../../interfaces';
+import { IAddSkills, IPosition, ISkill } from '../../interfaces';
 import { positionService } from '../../services';
 
 interface IPositionState {
     positions: IPosition[];
     position: IPosition | null;
+    totalCount: number;
     error: null;
 }
 
 const initialState: IPositionState = {
     positions: [],
     position: null,
+    totalCount: 0,
     error: null
 }
 
@@ -20,7 +22,26 @@ export const getAllPosition = createAsyncThunk<IPosition[] | void>(
     'positionSlice/getAllPosition',
     async (_, {dispatch, rejectWithValue}) => {
         try {
-            await positionService.getAll().then(data => dispatch(setPositions({positions: data})));
+            await positionService.getAll(9, 1).then(data => {
+                dispatch(setPositions({positions: data.rows}));
+                dispatch(setTotalCount({totalCount: data.count}));
+            });
+        } catch (e) {
+            const err = e as AxiosError;
+
+            return rejectWithValue(err.response?.data);
+        }
+    }
+)
+
+export const getAllWithParamsPosition = createAsyncThunk<IPosition[] | void, {limit: number, page: number}>(
+    'positionSlice/getAllWithParamsPosition',
+    async (data, {dispatch, rejectWithValue}) => {
+        try {
+            await positionService.getAll(data.limit, data.page).then(data => {
+                dispatch(setPositions({positions: data.rows}));
+                dispatch(setTotalCount({totalCount: data.count}));
+            });
         } catch (e) {
             const err = e as AxiosError;
 
@@ -54,12 +75,10 @@ export const addSkills = createAsyncThunk<void, IAddSkills>(
     async (data, {dispatch, rejectWithValue}) => {
         try {
             await positionService.addSkills(data.id, data.skill).then(data => {
-                console.log(data)
+                dispatch(addPositionSkill({skill: data}));
             })
         } catch (e) {
             const err = e as AxiosError;
-
-            console.log(err.response?.data)
 
             return rejectWithValue(err.response?.data);
         }
@@ -81,6 +100,12 @@ const positionSlice = createSlice({
         },
         setPositionError: (state, action) => {
             state.error = action.payload;
+        },
+        addPositionSkill: (state, action: PayloadAction<{skill: ISkill}>) => {
+            state.position?.skills.push(action.payload.skill);
+        },
+        setTotalCount: (state, action: PayloadAction<{totalCount: number}>) => {
+            state.totalCount = action.payload.totalCount;
         }
     },
     extraReducers: builder =>
@@ -94,4 +119,11 @@ const positionSlice = createSlice({
 const positionReducer = positionSlice.reducer;
 
 export default positionReducer;
-export const { setPositions, setPosition, addPosition, setPositionError } = positionSlice.actions;
+export const {
+    setPositions,
+    setPosition,
+    addPosition,
+    setPositionError,
+    addPositionSkill,
+    setTotalCount
+} = positionSlice.actions;

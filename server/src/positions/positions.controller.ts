@@ -1,4 +1,4 @@
-import {Body, Controller, HttpCode, HttpStatus, Get, Post, UseGuards, Param} from '@nestjs/common';
+import {Body, Controller, HttpCode, HttpStatus, Get, Post, UseGuards, Param, Query} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { PositionsService } from './positions.service';
@@ -21,8 +21,8 @@ export class PositionsController {
     }
 
     @Get()
-    getAll() {
-        return this.positionsService.getAll();
+    getAll(@Query('limit') limit: number, @Query('page') page: number) {
+        return this.positionsService.getAll(limit, page);
     }
 
     @Post('/:id/skills')

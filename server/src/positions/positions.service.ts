@@ -14,11 +14,17 @@ export class PositionsService {
                 private skillsService: SkillsService) {}
 
     async create(dto: CreatePositionDto) {
-        return await this.positionRepository.create({...dto});
+        const position = await this.positionRepository.create({...dto});
+
+        return await this.positionRepository.findOne({where: {id: position.id}, include: Skills});
     }
 
-    async getAll() {
-        return await this.positionRepository.findAll({include: Skills});
+    async getAll(limit: number, page: number) {
+        page = page || 1
+        limit = limit || 9
+        let offset = page * limit - limit;
+
+        return await this.positionRepository.findAndCountAll({limit, offset, include: Skills, distinct: true});
     }
 
     async addSkills(id: number, dto: SkillsDto) {
@@ -31,7 +37,7 @@ export class PositionsService {
 
         position.skills.forEach(skill => {
             if (skill.value === isSkill.value) {
-                throw new HttpException('Skill is already present!', HttpStatus.BAD_REQUEST);
+                throw new HttpException('Skill is already present', HttpStatus.BAD_REQUEST);
             }
         })
 

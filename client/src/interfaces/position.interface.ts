@@ -1,3 +1,5 @@
+import { ISkill } from './skill.interface';
+
 export interface IPosition {
     id: number;
     title: string;
@@ -7,5 +9,6 @@ export interface IPosition {
     english_level: string;
     status: boolean;
     userId: number | undefined;
+    skills: ISkill[];
     createdAt: string;
 }

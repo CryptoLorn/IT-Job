@@ -12,32 +12,65 @@ const AddPositionPage: FC = () => {
     const {position, error} = useAppSelector(state => state.positionReducer);
     const {skills} = useAppSelector(state => state.skillReducer);
     const [next, setNext] = useState(false);
+    const [selectedSkill, setSelectedSkill] = useState<number | null>(null);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(getAllSkill());
-    }, [])
+    }, [position?.skills])
 
     const addPosition: SubmitHandler<IPosition> = async (data) => {
         dispatch(createPosition({...data, userId: user?.id}));
         setNext(true);
     }
 
-    const nextStep = async (data: IAddSkills) => {
+    const nextStep = async (data: IAddSkills, e: number) => {
         dispatch(addSkills(data));
+        setSelectedSkill(e);
     }
 
     if (!error && next) {
         return (
             <div className={'add_position_page_skills_wrapper'}>
-                {skills.map(skill =>
-                    <div
-                        className={'add_position_page_skill'}
-                        key={skill.id}
-                        onClick={() => nextStep({skill, id: position?.id})}
-                    >{skill.value}
+                <div className={'add_position_page_skills_container_top'}>
+                    <div className={'add_position_page_skills_container_top_title'}>Skills required for this position:</div>
+                    <div className={'add_position_page_skills_container'}>
+                        {skills.map((skill, e) =>
+                            <div>
+                                {selectedSkill === e?
+                                    <div
+                                        className={'add_position_page_skill_active'}
+                                        key={skill.value}
+                                    >{skill.value}
+                                    </div>
+                                    :
+                                    <div
+                                        className={'add_position_page_skill'}
+                                        key={skill.id}
+                                        onClick={() => nextStep({skill, id: position?.id}, e)}
+                                    >{skill.value}
+                                    </div>
+                                }
+                            </div>
+                        )}
                     </div>
-                )}
+                </div>
+
+                <div className={'add_position_page_skills_container_top'}>
+                    <div className={'add_position_page_skills_container_top_title'}>Selected skills:</div>
+                    <div className={'add_position_page_skills_container'}>
+                        {position?.skills.map(skill =>
+                            <div
+                                className={'remove_position_page_skill'}
+                                key={skill.id}
+                                onClick={() => 'remove'}
+                            >{skill.value}
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className={'add_position_page_skills_button'}>Save</div>
             </div>
         )
     }

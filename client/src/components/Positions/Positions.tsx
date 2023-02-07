@@ -2,16 +2,21 @@ import React, {FC, useEffect} from 'react';
 
 import './Positions.css';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getAllPosition } from '../../store';
+import {getAllPosition, getAllWithParamsPosition} from '../../store';
 import Position from '../Position/Position';
 
 const Positions: FC = () => {
     const {positions} = useAppSelector(state => state.positionReducer);
+    const {page} = useAppSelector(state => state.pageReducer);
     const dispatch = useAppDispatch();
 
+    // useEffect(() => {
+    //     dispatch(getAllPosition());
+    // }, [])
+
     useEffect(() => {
-        dispatch(getAllPosition());
-    }, [])
+        dispatch(getAllWithParamsPosition({limit: 9, page}));
+    }, [page])
 
     return (
         <div className={'positions_wrapper'}>
