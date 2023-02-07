@@ -6,11 +6,11 @@ import {
     Injectable, NotFoundException,
     UnauthorizedException
 } from '@nestjs/common';
-import {JwtService} from '@nestjs/jwt';
-import {Reflector} from '@nestjs/core';
+import { JwtService } from '@nestjs/jwt';
+import { Reflector } from '@nestjs/core';
 
-import {ROLES_KEY} from './rolesAuth.decorator';
-import {UserService} from '../users/user.service';
+import { ROLES_KEY } from './rolesAuth.decorator';
+import { UserService } from '../users/user.service';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
@@ -42,7 +42,7 @@ export class RoleGuard implements CanActivate {
                 throw new NotFoundException({message: 'No found user'});
             }
 
-            const isAccess = user.roles.some(role => requiredRoles.includes(role.value));
+            const isAccess = requiredRoles.includes(user.role);
 
             if (!isAccess) {
                 throw new HttpException('No access', HttpStatus.FORBIDDEN);

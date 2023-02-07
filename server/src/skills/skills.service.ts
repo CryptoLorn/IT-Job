@@ -18,6 +18,10 @@ export class SkillsService {
         return await this.skillsRepository.create(skillsDto);
     }
 
+    async getAll() {
+        return await this.skillsRepository.findAll();
+    }
+
     async getSkillsByValue(value: string) {
         const skills = await this.skillsRepository.findOne({where: {value}});
 

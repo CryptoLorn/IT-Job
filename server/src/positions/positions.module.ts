@@ -7,15 +7,13 @@ import { User } from '../users/user.model';
 import { Position } from './positions.model';
 import { AuthModule } from '../auth/auth.module';
 import { UserModule } from '../users/user.module';
-import {Skills} from "../skills/skills.model";
-import {SkillsModule} from "../skills/skills.module";
-import {PositionSkills} from "./positionSkills.model";
+import { SkillsModule } from '../skills/skills.module';
 
 @Module({
     controllers: [PositionsController],
     providers: [PositionsService],
     imports: [
-        SequelizeModule.forFeature([User, Position, Skills, PositionSkills]),
+        SequelizeModule.forFeature([User, Position]),
         forwardRef(() => AuthModule),
         UserModule,
         SkillsModule

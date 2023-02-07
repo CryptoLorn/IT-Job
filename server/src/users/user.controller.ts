@@ -4,7 +4,6 @@ import {AuthGuard} from '@nestjs/passport';
 import {UserService} from './user.service';
 import {Roles} from '../auth/rolesAuth.decorator';
 import {RoleGuard} from '../auth/role.guard';
-import {AddRoleDto} from './dto/addRole.dto';
 import {UpdateUserDto} from './dto/updateUser.dto';
 import {SkillsDto} from "../skills/dto/skills.dto";
 
@@ -19,15 +18,6 @@ export class UserController {
     @Get()
     getAll() {
         return this.userService.getAll();
-    }
-
-    @HttpCode(HttpStatus.OK)
-    @Roles('ADMIN')
-    @UseGuards(RoleGuard)
-    @UseGuards(AuthGuard('jwt'))
-    @Post('/role')
-    addRole(@Body() dto: AddRoleDto) {
-        return this.userService.addRole(dto);
     }
 
     @HttpCode(HttpStatus.OK)

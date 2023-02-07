@@ -9,8 +9,9 @@ import {isAuth} from "./store";
 import RegisterPage from "./pages/Register/RegisterPage";
 import PositionDetailsPage from "./pages/PositionDetails/PositionDetailsPage";
 import AdminPage from "./pages/Admin/AdminPage";
-import AddRole from "./components/AddRole/AddRole";
 import AddSkill from "./components/AddSkill/AddSkill";
+import RequireAuth from "./hooks/requireAuth";
+import AddPositionPage from "./pages/AddPosition/AddPositionPage";
 
 const App: FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -34,11 +35,15 @@ const App: FC = () => {
                 <Route path={'/'} element={<HomePage/>} />
                 <Route path={'/login'} element={<LoginPage/>} />
                 <Route path={'/signup'} element={<RegisterPage/>} />
-                <Route path={'/admin'} element={<AdminPage/>}>
-                    <Route path={'role'} element={<AddRole/>} />
+                <Route path={'/admin'} element={
+                    <RequireAuth>
+                        <AdminPage />
+                    </RequireAuth>
+                }>
                     <Route path={'skill'} element={<AddSkill/>} />
                 </Route>
                 <Route path={'/:id/:name'} element={<PositionDetailsPage/>} />
+                <Route path={'/positions'} element={<AddPositionPage/>} />
             </Route>
         </Routes>
     );

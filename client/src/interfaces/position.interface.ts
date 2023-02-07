@@ -6,6 +6,6 @@ export interface IPosition {
     description: string;
     english_level: string;
     status: boolean;
-    userId: number;
+    userId: number | undefined;
     createdAt: string;
 }

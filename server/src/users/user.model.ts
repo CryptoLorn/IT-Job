@@ -1,17 +1,17 @@
 import { BelongsToMany, Column, DataType, HasMany, HasOne, Model, Table } from 'sequelize-typescript';
 
-import { Role } from '../roles/role.model';
-import { UserRole } from '../roles/userRole.model';
 import { levelEnum } from './enums/level.enum';
 import { Skills } from '../skills/skills.model';
 import { UserSkills } from '../skills/userSkills.model';
 import { Tokens } from '../tokens/tokens.model';
 import { Position } from '../positions/positions.model';
-import {englishLevelEnum} from "../positions/enums/englishLevel.enum";
+import { englishLevelEnum } from '../positions/enums/englishLevel.enum';
+import { roleEnum } from './enums/role.enum';
 
 interface UserCreationAttributes {
     email: string;
     password: string;
+    role: string;
 }
 
 @Table({tableName: 'users'})
@@ -25,6 +25,9 @@ export class User extends Model<User, UserCreationAttributes> {
     @Column({type: DataType.STRING, allowNull: false})
     password: string;
 
+    @Column({type: DataType.ENUM({values: roleEnum})})
+    role: string;
+
     @Column({type: DataType.ENUM({values: levelEnum})})
     level: string;
 
@@ -33,9 +36,6 @@ export class User extends Model<User, UserCreationAttributes> {
 
     @Column({type: DataType.BOOLEAN, defaultValue: true})
     status: boolean;
-
-    @BelongsToMany(() => Role, () => UserRole)
-    roles: Role[];
 
     @BelongsToMany(() => Skills, () => UserSkills)
     skills: Skills[];

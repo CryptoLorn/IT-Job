@@ -1,16 +1,16 @@
 import React, {FC, useEffect} from 'react';
 
 import './Positions.css';
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {getAll} from "../../store";
-import Position from "../Position/Position";
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getAllPosition } from '../../store';
+import Position from '../Position/Position';
 
 const Positions: FC = () => {
     const {positions} = useAppSelector(state => state.positionReducer);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getAll());
+        dispatch(getAllPosition());
     }, [])
 
     return (

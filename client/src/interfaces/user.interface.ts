@@ -6,10 +6,10 @@ export interface IUser {
     id: number;
     email: string;
     password: string;
-    level: string | null;
+    role: string;
+    level: string;
     english_knowledge: boolean;
     status: boolean;
     positions: IPosition[];
-    roles: IRole[];
     skills: ISkill[];
 }

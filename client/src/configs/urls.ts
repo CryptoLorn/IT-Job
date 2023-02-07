@@ -6,7 +6,6 @@ export const urls = {
     refresh: '/auth/refresh',
     logout: '/auth/logout',
     positions: '/positions',
-    roles: '/roles',
     skills: '/skills'
 }
 

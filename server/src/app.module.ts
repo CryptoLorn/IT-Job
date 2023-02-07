@@ -5,10 +5,7 @@ import {ConfigModule} from '@nestjs/config';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {UserModule} from './users/user.module';
-import {RoleModule} from './roles/role.module';
 import {User} from './users/user.model';
-import {Role} from './roles/role.model';
-import {UserRole} from './roles/userRole.model';
 import {AuthModule} from './auth/auth.module';
 import {SkillsModule} from './skills/skills.module';
 import {Skills} from './skills/skills.model';
@@ -33,11 +30,10 @@ import {PositionSkills} from "./positions/positionSkills.model";
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, Skills, UserRole, UserSkills, Tokens, Position, PositionSkills],
+      models: [User, Skills, UserSkills, Tokens, Position, PositionSkills],
       autoLoadModels: true
     }),
     UserModule,
-    RoleModule,
     AuthModule,
     SkillsModule,
     TokensModule,
