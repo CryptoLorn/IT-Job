@@ -1,0 +1,79 @@
+.add_skill_to_position_wrapper {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_skill_to_position, .remove_skill {
+    border: 1px solid #727272;
+    height: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #727272;
+}
+
+.add_skill_to_position:hover {
+    cursor: pointer;
+    border: 1px solid green;
+    color: green;
+    background-color: #c8f1c8;
+}
+
+.remove_skill:hover {
+    cursor: pointer;
+    border: 1px solid red;
+    color: red;
+    background-color: #e1aaaa;
+}
+
+.add_skill_to_position_container_top {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.add_skill_to_position_container_top_title {
+    font-size: 24px;
+}
+
+.add_skill_to_position_container {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 30px;
+    column-gap: 30px;
+}
+
+.add_skill_to_position_button {
+    height: 30px;
+    width: 150px;
+    border: 1px solid #727272;
+    border-radius: 10px;
+    color: #727272;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.add_skill_to_position_button:hover {
+    cursor: pointer;
+    border: 1px solid black;
+    color: black;
+}
+
+.successfully_added {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20%;
+    color: green;
+}

@@ -1,11 +1,11 @@
-import {Body, Controller, HttpCode, HttpStatus, Get, Post, UseGuards, Param, Query} from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Get, Post, UseGuards, Param, Query, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { PositionsService } from './positions.service';
 import { CreatePositionDto } from './dto/createPosition.dto';
 import { RoleGuard } from '../auth/role.guard';
 import { Roles } from '../auth/rolesAuth.decorator';
-import {SkillsDto} from "../skills/dto/skills.dto";
+import { SkillsDto } from '../skills/dto/skills.dto';
 
 @Controller('positions')
 export class PositionsController {
@@ -28,5 +28,10 @@ export class PositionsController {
     @Post('/:id/skills')
     addSkills(@Param('id') id: number, @Body() dto: SkillsDto) {
         return this.positionsService.addSkills(id, dto);
+    }
+
+    @Delete('/:positionId/:skillId')
+    deleteSkills(@Param('positionId') positionId: number, @Param('skillId') skillId: number) {
+        return this.positionsService.deleteById(positionId, skillId);
     }
 }

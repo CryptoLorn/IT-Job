@@ -24,9 +24,4 @@ export class SkillsController {
     getAll() {
         return this.skillsService.getAll();
     }
-
-    @Get('/:value')
-    getByValue(@Param('value') value: string) {
-        return this.skillsService.getSkillsByValue(value);
-    }
 }

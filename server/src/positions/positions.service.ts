@@ -1,4 +1,4 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { Position } from './positions.model';
@@ -29,7 +29,7 @@ export class PositionsService {
 
     async addSkills(id: number, dto: SkillsDto) {
         const position = await this.positionRepository.findOne({where: {id}, include: Skills});
-        const isSkill = await this.skillsService.getSkillsByValue(dto.value);
+        const isSkill = await this.skillsService.getSkillByValue(dto.value);
 
         if (!position || !isSkill) {
             throw new HttpException('Not found position or skill', HttpStatus.NOT_FOUND);
@@ -44,5 +44,18 @@ export class PositionsService {
         await position.$add('skills', isSkill.id);
 
         return dto;
+    }
+
+    async deleteById(positionId: number, skillId: number) {
+        const position = await this.positionRepository.findOne({where: {id: positionId}});
+        const skill = await this.skillsService.getSkillById(skillId);
+
+        if (!position || !skill) {
+            throw new HttpException('Not found position or skill', HttpStatus.NOT_FOUND);
+        }
+
+        await position.$remove('skills', skill.id);
+
+        return skill;
     }
 }

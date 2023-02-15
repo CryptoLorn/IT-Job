@@ -9,13 +9,17 @@ interface IPositionState {
     position: IPosition | null;
     totalCount: number;
     error: null;
+    deleteSkillError: null;
+    positionSkills: ISkill[];
 }
 
 const initialState: IPositionState = {
     positions: [],
     position: null,
     totalCount: 0,
-    error: null
+    error: null,
+    deleteSkillError: null,
+    positionSkills: []
 }
 
 export const getAllPosition = createAsyncThunk<IPosition[] | void>(
@@ -75,8 +79,27 @@ export const addSkills = createAsyncThunk<void, IAddSkills>(
     async (data, {dispatch, rejectWithValue}) => {
         try {
             await positionService.addSkills(data.id, data.skill).then(data => {
-                dispatch(addPositionSkill({skill: data}));
+                dispatch(addSkillToPosition({skill: data}));
+
+                if (data) {
+                    dispatch(setPositionError(null));
+                }
             })
+        } catch (e) {
+            const err = e as AxiosError;
+
+            return rejectWithValue(err.response?.data);
+        }
+    }
+)
+
+export const deleteSkills = createAsyncThunk<void, IAddSkills>(
+    'positionSlice/deleteSkills',
+    async (data, {dispatch, rejectWithValue}) => {
+        try {
+            await positionService.deleteSkills(data.id, data.skill.id);
+            dispatch(deleteSkillToPosition({skill: data.skill}));
+
         } catch (e) {
             const err = e as AxiosError;
 
@@ -101,11 +124,21 @@ const positionSlice = createSlice({
         setPositionError: (state, action) => {
             state.error = action.payload;
         },
-        addPositionSkill: (state, action: PayloadAction<{skill: ISkill}>) => {
+        // setAddSkillToPositionError: (state, action) => {
+        //     state.addSkillError = action.payload;
+        // },
+        addSkillToPosition: (state, action: PayloadAction<{skill: ISkill}>) => {
             state.position?.skills.push(action.payload.skill);
+            state.positionSkills.push(action.payload.skill);
+        },
+        deleteSkillToPosition: (state, action: PayloadAction<{skill: ISkill}>) => {
+            state.positionSkills = state.positionSkills.filter(skill => skill.id !== action.payload.skill.id);
         },
         setTotalCount: (state, action: PayloadAction<{totalCount: number}>) => {
             state.totalCount = action.payload.totalCount;
+        },
+        setPositionSkills: (state, action: PayloadAction<[]>) => {
+            state.positionSkills = action.payload;
         }
     },
     extraReducers: builder =>
@@ -113,6 +146,14 @@ const positionSlice = createSlice({
             .addCase(createPosition.rejected, (state, action) => {
                 // @ts-ignore
                 state.error = action.payload.message;
+            })
+            .addCase(addSkills.rejected, (state, action) => {
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+            .addCase(deleteSkills.rejected, (state, action) => {
+                // @ts-ignore
+                state.deleteSkillError = action.payload.message;
             })
 })
 
@@ -124,6 +165,8 @@ export const {
     setPosition,
     addPosition,
     setPositionError,
-    addPositionSkill,
-    setTotalCount
+    addSkillToPosition,
+    setTotalCount,
+    deleteSkillToPosition,
+    setPositionSkills
 } = positionSlice.actions;

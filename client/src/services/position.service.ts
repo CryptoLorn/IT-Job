@@ -18,5 +18,8 @@ export const positionService = {
 
     addSkills: (id: number | undefined, skill: ISkill) =>
         authAxiosService.post<ISkill>(`${urls.positions}/${id}/skills`, skill)
-            .then(value => value.data)
+            .then(value => value.data),
+
+    deleteSkills: (positionId: number | undefined, skillId: number) =>
+        authAxiosService.delete<void>(`${urls.positions}/${positionId}/${skillId}`)
 }

@@ -45,58 +45,6 @@
     font-size: 16px;
 }
 
-.add_position_page_skills_wrapper {
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 50px;
-    justify-content: center;
-    align-items: center;
-}
-
-.add_position_page_skill, .remove_position_page_skill {
-    border: 1px solid #727272;
-    height: 40px;
-    padding-left: 15px;
-    padding-right: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    color: #727272;
-}
-
-.add_position_page_skill:hover {
-    cursor: pointer;
-    border: 1px solid green;
-    color: green;
-    background-color: #c8f1c8;
-}
-
-.remove_position_page_skill:hover {
-    cursor: pointer;
-    border: 1px solid red;
-    color: red;
-    background-color: #e1aaaa;
-}
-
-.add_position_page_skills_container_top {
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-    align-items: center;
-    justify-content: center;
-}
-
-.add_position_page_skills_container_top_title {
-    font-size: 24px;
-}
-
-.add_position_page_skills_container {
-    display: flex;
-    column-gap: 30px;
-}
-
 .add_position_page_skills_button {
     height: 30px;
     width: 150px;
@@ -113,17 +61,4 @@
     cursor: pointer;
     border: 1px solid black;
     color: black;
-}
-
-.add_position_page_skill_active {
-    height: 40px;
-    padding-left: 15px;
-    padding-right: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    border: 1px solid green;
-    color: green;
-    background-color: #c8f1c8;
 }

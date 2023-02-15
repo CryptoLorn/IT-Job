@@ -9,9 +9,9 @@ export class SkillsService {
     constructor(@InjectModel(Skills) private skillsRepository: typeof Skills) {}
 
     async create(skillsDto: SkillsDto) {
-        const skills = await this.skillsRepository.findOne({where: {value: skillsDto.value}});
+        const skill = await this.skillsRepository.findOne({where: {value: skillsDto.value}});
 
-        if (skills) {
+        if (skill) {
             throw new HttpException('Skills is already exist', HttpStatus.BAD_REQUEST);
         }
 
@@ -22,13 +22,23 @@ export class SkillsService {
         return await this.skillsRepository.findAll();
     }
 
-    async getSkillsByValue(value: string) {
-        const skills = await this.skillsRepository.findOne({where: {value}});
+    async getSkillByValue(value: string) {
+        const skill = await this.skillsRepository.findOne({where: {value}});
 
-        if (!skills) {
+        if (!skill) {
             throw new NotFoundException('Not found skills');
         }
 
-        return skills;
+        return skill;
+    }
+
+    async getSkillById(id: number) {
+        const skill = await this.skillsRepository.findOne({where: {id}});
+
+        if (!skill) {
+            throw new NotFoundException('Not found skills');
+        }
+
+        return skill;
     }
 }

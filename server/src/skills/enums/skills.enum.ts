@@ -15,5 +15,7 @@ export const skillsEnum = [
     'React',
     'Angular',
     'Vue',
-    'Rust'
+    'Rust',
+    'HTML',
+    'CSS'
 ]

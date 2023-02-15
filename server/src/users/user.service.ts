@@ -66,7 +66,7 @@ export class UserService {
 
     async addSkills(id: number, dto: SkillsDto) {
         const user = await this.userRepository.findOne({where: {id}});
-        const skill = await this.skillsService.getSkillsByValue(dto.value);
+        const skill = await this.skillsService.getSkillByValue(dto.value);
 
         if (!user || !skill) {
             throw new HttpException('Not found user or skills', HttpStatus.NOT_FOUND);
@@ -79,13 +79,13 @@ export class UserService {
 
     async deleteSkills(id: number, dto: SkillsDto) {
         const user = await this.userRepository.findOne({where: {id}});
-        const skills = await this.skillsService.getSkillsByValue(dto.value);
+        const skill = await this.skillsService.getSkillByValue(dto.value);
 
-        if (!user || !skills) {
-            throw new HttpException('Not found user or skills', HttpStatus.NOT_FOUND);
+        if (!user || !skill) {
+            throw new HttpException('Not found user or skill', HttpStatus.NOT_FOUND);
         }
 
-        await user.$remove('skills', skills.id);
+        await user.$remove('skills', skill.id);
 
         return dto;
     }

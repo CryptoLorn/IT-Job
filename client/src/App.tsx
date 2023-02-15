@@ -12,6 +12,7 @@ import AdminPage from "./pages/Admin/AdminPage";
 import AddSkill from "./components/AddSkill/AddSkill";
 import RequireAuth from "./hooks/requireAuth";
 import AddPositionPage from "./pages/AddPosition/AddPositionPage";
+import AddSkillsToPositionPage from "./pages/AddSkillsToPosition/AddSkillsToPositionPage";
 
 const App: FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -44,6 +45,7 @@ const App: FC = () => {
                 </Route>
                 <Route path={'/:id/:name'} element={<PositionDetailsPage/>} />
                 <Route path={'/positions'} element={<AddPositionPage/>} />
+                <Route path={'/positions-skills'} element={<AddSkillsToPositionPage/>} />
             </Route>
         </Routes>
     );

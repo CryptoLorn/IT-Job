@@ -7,7 +7,7 @@ import { PositionSkills } from './positionSkills.model';
 
 interface PositionCreationAttrs {
     title: string;
-    salary: number
+    salary: number;
     level: string;
     description?: string;
     english_level: string;
